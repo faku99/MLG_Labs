@@ -1,0 +1,18 @@
+EPOCHS = 300
+N_NEURONS = 25
+
+nn = mlp.MLP([INPUT_NEURONS, N_NEURONS, OUTPUT_NEURONS], 'tanh')
+MSE_train, MSE_test, conf_mat = cv.k_fold_cross_validation(nn,
+                                                          dataset,
+                                                          k=K,
+                                                          learning_rate=LEARNING_RATE,
+                                                          momentum=MOMENTUM,
+                                                          epochs=EPOCHS,
+                                                          threshold=0.5)
+
+
+MSE training:  0.06306491560558991
+MSE test:  0.06586202031899806
+Confusion matrix:
+[[ 793.  147.]
+ [ 114. 2770.]]

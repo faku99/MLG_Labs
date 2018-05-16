@@ -1,0 +1,56 @@
+\subsubsection*{Q1. Determine where do we define all the above mentioned parameters.}
+
+All the parameters are defined in global variables as stated by the following code:
+
+\begin{lstlisting}
+N_INITS = 2
+N_SPLITS = 10
+DATASET_SIZE = 200
+EPOCHS = 100
+N_NEURONS = 2
+LEARNING_RATE = 0.001
+MOMENTUM = 0.7
+TRAIN_TEST_RATIO = 0.8
+DATA_PARAMS = np.arange(0.4, 0.71, 0.1)
+\end{lstlisting}
+
+\subsubsection*{Q2. What are the cyan and red curves in those plots? Why are they different?}
+
+The cyan curves represent the training MSE while the red ones represent the testing MSE. They are different because there aren't the same sets of data: the training data is used for training the network while the testing one is used to test the network. Therefore, the results might vary.
+
+\subsubsection*{Q3. What happens with the training and test errors (MSE) when we have the two sets more overlapped?}
+
+The more the two sets are overlapped, the more the training and test errors are high.
+
+\subsubsection*{Q4. Why sometimes the red curves indicate a higher error than the cyan ones?}
+
+It means that some data partitions are more difficult to learn than others. The learning set might contain data that is not represented in the testing data so it will have an hard time computing it.
+
+\subsubsection*{Q5. What is showing the boxplot summarizing the validation errors of the preceding experiments?}
+
+It shows that an high spread value makes classes to superpose, making the classification difficult. With a spread factor of 0.7, we see that there are approx. 25\% of errors, while for a factor between 0.4 and 0.6, the error rate is less than 10\%.
+
+\section{\texttt{cross\_validation} notebook}
+
+\subsubsection*{Q1. Determine where do we define all the above mentioned parameters.}
+
+All the parameters are defined in global variables as stated by the following code:
+
+\begin{lstlisting}
+N_SPLITS = 10
+DATASET_SIZE = 200
+EPOCHS = 20
+N_NEURONS = 2
+K = 5
+LEARNING_RATE = 0.001
+MOMENTUM = 0.7
+DATA_PARAMS = np.arange(0.4, 0.71, 0.1)
+\end{lstlisting}
+
+\subsubsection*{Q2. What is the difference between hold-out and cross-validation? What is the new parameter that has to be defined for cross-validation?}
+
+Cross-validation is one way to improve over hold-out validation. The data is splitted in \textit{k} subsets and the hold-out method is repeated \textit{k} times. Each time, one of the \textit{k} subset is used as the test set and the other \textit{k-1} subsets are put together to form a training set. The new parameter to be defined is \textit{k}.
+
+\subsubsection*{Q3. Observe the boxplots summarizing the validation errors obtained using the cross-validation method and compare them with those obtained by hold-out validation.}
+
+The boxplots obtained using the cross-validation method shows that the network's predictions are way better than the one using hold-out validation.
