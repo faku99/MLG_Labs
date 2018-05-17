@@ -61,12 +61,14 @@ class ImageFeatureExtractor:
             histograms = []
             for color in range(image.shape[2]):
                 band = image[:, :, color].reshape(-1)
+                
                 hist_values, bins = np.histogram(band, range=(0, 255),
                                                  bins=bins)
                 histograms += list(hist_values)
             color_histograms.append(histograms)
         color_histograms = np.array(color_histograms)
         color_histograms = color_histograms.astype('float')
+
         return color_histograms
 
     def extract_hue_histogram(self, bins=10):
@@ -75,12 +77,31 @@ class ImageFeatureExtractor:
                                      'load_images() ?'
         hue_histograms = []
         for image in self.images:
-            hue = skicol.rgb2hsv(image)[:, :, 0].reshape(-1)
-            hist_values, bins = np.histogram(hue, range=(0, 1), bins=bins)
+            hue = skicol.rgb2hsv(image)
+            histograms = []
+            for color in range(image.shape[2]):
+                band = image[:, :, color].reshape(-1)
+                
+                hist_values, bins = np.histogram(band, range=(-1, 1),
+                                                 bins=bins)
+                histograms += list(hist_values)
             hue_histograms.append(hist_values)
         hue_histograms = np.array(hue_histograms)
         hue_histograms = hue_histograms.astype('float')
         return hue_histograms
+    
+    def extract_yuv_histogram(self, bins=10):
+        """Extract hue histogram."""
+        assert len(self.images) > 0, 'No images loaded! Did you call ' \
+                                     'load_images() ?'
+        yuv_histograms = []
+        for image in self.images:
+            yuv = skicol.rgb2yuv(image)[:, :, 0].reshape(-1)
+            hist_values, bins = np.histogram(yuv, range=(0, 1), bins=bins)
+            yuv_histograms.append(hist_values)
+        yuv_histograms = np.array(yuv_histograms)
+        yuv_histograms = yuv_histograms.astype('float')
+        return yuv_histograms
 
     def to_html(self, file_name, kohonen_map):
         """Write images contained in a Kohonen map to an HTML file."""
