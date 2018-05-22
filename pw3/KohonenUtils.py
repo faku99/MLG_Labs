@@ -112,7 +112,7 @@ class KohonenMap:
 
     def plot_umatrix(self, plot_points=True, color_classes=False,
                      plot_empty=False, plot_names=False, dataset_output=None,
-                     plot_index=False, figsize=None, fontsize=8):
+                     plot_index=False, figsize=None, fontsize=8, img_name=None):
         """Plot the U-Matrix in greyscale colors."""
         assert self._trained, 'You should train the map first!'
 
@@ -227,6 +227,10 @@ class KohonenMap:
         pl.xlim(-0.5, col + 1)
         pl.ylim(row + 0.5, -0.5)
         pl.axis('off')
+        
+        if img_name:
+            pl.savefig(img_name)
+        
         pl.show()
 
 
